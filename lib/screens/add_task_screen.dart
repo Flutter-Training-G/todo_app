@@ -3,13 +3,17 @@
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+  final void Function(String?) addTaskCallBack;
+
+  AddTaskScreen({required this.addTaskCallBack});
 
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+  String? taskTitle;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,13 +29,17 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           TextFormField(
             autofocus: true,
             textAlign: TextAlign.center,
-            onChanged: (value) {},
+            onChanged: (value) {
+              taskTitle = value;
+            },
           ),
           SizedBox(
             height: 10,
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              widget.addTaskCallBack(taskTitle);
+            },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 15),
             ),
