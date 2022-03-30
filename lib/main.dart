@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_application/models/task_model.dart';
 import 'package:todo_application/screens/tasks_screen.dart';
 
 void main() {
@@ -12,6 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: TasksScreen());
+    return ChangeNotifierProvider(
+      create: (context) => TaskModel(),
+      child: MaterialApp(
+        home: TasksScreen(),
+      ),
+    );
   }
 }

@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_application/models/task_model.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  final void Function(String?) addTaskCallBack;
-
-  AddTaskScreen({required this.addTaskCallBack});
-
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
@@ -38,7 +36,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              widget.addTaskCallBack(taskTitle);
+              if (taskTitle != null) {
+                context.read<TaskModel>().addTask(taskTitle!);
+              }
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 15),

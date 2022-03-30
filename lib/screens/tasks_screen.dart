@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/task_model.dart';
 import 'package:todo_application/models/task.dart';
 import 'package:todo_application/screens/add_task_screen.dart';
 import 'package:todo_application/widgets/task_list.dart';
@@ -13,10 +15,7 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'Finish Homework'),
-    Task(name: 'Finish Assesment'),
-  ];
+  
 
 
   @override
@@ -49,7 +48,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${context.watch<TaskModel>().taskCount} Tasks',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -61,7 +60,7 @@ class _TasksScreenState extends State<TasksScreen> {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: TaskList(tasks),
+              child: TaskList(),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -84,15 +83,6 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
             ),
             builder: (context) => AddTaskScreen(
-              addTaskCallBack: (String? taskTitle) {
-                if (taskTitle != null) {
-                  var task = Task(name: taskTitle);
-                  setState(() {
-                    tasks.add(task);
-                  });
-                }
-                Navigator.pop(context);
-              },
             ),
           );
         },

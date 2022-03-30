@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 
-class TaskTile extends StatefulWidget {
+class TaskTile extends StatelessWidget {
   final String name;
   final bool isDone;
-  final Function(bool?) checkBoxCallBack;
+  final void Function(bool?) checkBoxCallBack;
+  final void Function()? deleteTaskCallBack;
 
-  TaskTile({required this.isDone, required this.name, required this.checkBoxCallBack});
-  @override
-  State<TaskTile> createState() => _TaskTileState();
-}
-
-class _TaskTileState extends State<TaskTile> {
+  TaskTile({required this.isDone, required this.name, required this.checkBoxCallBack, required this.deleteTaskCallBack,});
+  
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        widget.name,
+        name,
         style: TextStyle(
-            decoration: widget.isDone
+            decoration: isDone
                 ? TextDecoration.lineThrough
                 : TextDecoration.none),
       ),
+      onLongPress: deleteTaskCallBack,
       trailing: Checkbox(
-        value: widget.isDone,
-        onChanged: widget.checkBoxCallBack
+        value: isDone,
+        onChanged: checkBoxCallBack
       ),
     );
   }
